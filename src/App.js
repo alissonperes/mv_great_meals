@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import logo from "./logo.svg";
 import "./App.css";
 
@@ -7,7 +8,8 @@ class App extends React.Component {
     super(props);
     this.state = {
       name: this.props.name || "Loading great meal...",
-      image: logo
+      image: logo,
+      store: this.props.store
     };
   }
 
@@ -19,6 +21,7 @@ class App extends React.Component {
           const { strMeal, strMealThumb } = data.meals[0];
           this.setState({ name: strMeal, image: strMealThumb });
         });
+      console.log(this.state);
     } catch (e) {
       console.error(e);
     }
@@ -41,4 +44,6 @@ class App extends React.Component {
   }
 }
 
-export default App;
+const mapStateToProps = state => ({ store: state });
+
+export default connect(mapStateToProps)(App);
