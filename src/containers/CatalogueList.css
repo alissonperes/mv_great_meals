@@ -7,7 +7,7 @@
   margin-right: 1rem;
 }
 
-.selected-item {
+.active.list-item {
   background-color: pink;
   margin-right: 1rem;
 }

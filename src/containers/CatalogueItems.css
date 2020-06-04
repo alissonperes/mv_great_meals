@@ -1,0 +1,21 @@
+.recipes-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.recipe-item {
+  position: relative;
+  width: 20rem;
+  height: 20rem;
+}
+
+.item-name {
+  position: absolute;
+  background: #2d2c2cb8;
+  left: 3rem;
+  color: #fff;
+}
+
+.recipe-item img {
+  height: 100%;
+}

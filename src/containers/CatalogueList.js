@@ -1,69 +1,48 @@
 import React from "react";
 import { connect } from "react-redux";
-import "./CatalogueList.css";
 import { updateCategories } from "../actions/index";
+import "./CatalogueList.css";
 
-class CatalogueList extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      categories: this.props.categories,
-      displayCategory: this.props.category
-    };
+const CatalogueList = props => {
+  if (
+    !props.categories.fetched &&
+    !props.categories.fetching &&
+    props.categories.error === null
+  ) {
+    props.getCategories();
   }
+  const listCategories = props.categories.categories.map(x => {
+    const currentCategory =
+      x.strCategory !== props.category ? "list-item" : "active list-item";
 
-  async getCategories() {
-    try {
-      const response = await fetch(
-        "https://www.themealdb.com/api/json/v1/1/list.php?c=list"
-      );
-      const data = await response.json();
-      const updatedCategories = data.meals;
-
-      this.props.updateCategories(updatedCategories);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  componentWillMount() {
-    this.getCategories();
-  }
-
-  render() {
-    // console.log(this.props);
-    const categoryItems = [];
-    this.props.categories.forEach(x =>
-      categoryItems.push(
-        <li
-          className={
-            x.strCategory === this.state.displayCategory
-              ? "selected-item"
-              : "list-item"
-          }
-          key={x.strCategory}
-        >
-          {x.strCategory}
-        </li>
-      )
-    );
     return (
-      <div className="header">
-        <ul className="header-list">{categoryItems}</ul>
-      </div>
+      <li
+        className={currentCategory}
+        key={x.strCategory}
+        onClick={props.handleChange}
+      >
+        {x.strCategory}
+      </li>
     );
-  }
-}
+  });
 
-const mapStateToProps = state => ({
-  categories: state.categories,
-  category: state.category,
-  recipes: state.recipes,
-  recipe: state.displayedRecipe
-});
+  return (
+    <div>
+      <ul className="header-list">{listCategories}</ul>
+    </div>
+  );
+};
+
+const mapStateToProps = store => {
+  return {
+    category: store.category,
+    categories: store.categories,
+    store: store
+  };
+};
 
 const mapDispatchToProps = dispatch => ({
-  updateCategories: categories => dispatch(updateCategories(categories))
+  getCategories: () => dispatch(updateCategories())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CatalogueList);
