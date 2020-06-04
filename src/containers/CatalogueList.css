@@ -1,0 +1,13 @@
+.header-list {
+  display: flex;
+  list-style: none;
+}
+
+.list-item {
+  margin-right: 1rem;
+}
+
+.selected-item {
+  background-color: pink;
+  margin-right: 1rem;
+}
