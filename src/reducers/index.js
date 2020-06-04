@@ -1,5 +1,12 @@
 import { combineReducers } from "redux";
 import categories from "./categories";
-import recipe from "./recipe";
+import category from "./category";
+import displayedRecipe from "./displayedRecipe";
+import recipes from "./recipes";
 
-export default combineReducers({ categories, recipe });
+export default combineReducers({
+  categories,
+  displayedRecipe,
+  category,
+  recipes
+});
