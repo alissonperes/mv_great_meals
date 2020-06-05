@@ -18,6 +18,19 @@ const getRecipes = currentCategory => {
   };
 };
 
+const getRecipe = recipe => {
+  return {
+    type: "GET_RECIPE",
+    payload: axios.get(
+      `https://www.themealdb.com/api/json/v1/1/search.php?s=${recipe}`
+    )
+  };
+};
+
+const clearRecipe = () => {
+  return { type: "CLEAR_RECIPE" };
+};
+
 const updateCurrentCategory = category => {
   return { type: "CHANGE_CATEGORY", category };
 };
@@ -26,4 +39,11 @@ const updateRecipes = recipes => {
   return { type: "UPDATE_RECIPES", recipes };
 };
 
-export { updateCategories, updateCurrentCategory, getRecipes, updateRecipes };
+export {
+  updateCategories,
+  updateCurrentCategory,
+  getRecipes,
+  updateRecipes,
+  getRecipe,
+  clearRecipe
+};

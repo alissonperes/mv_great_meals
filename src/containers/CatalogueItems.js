@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getRecipes } from "../actions/index";
+import { getRecipes, getRecipe } from "../actions/index";
 import "./CatalogueItems.css";
 
 const CatalogueItems = props => {
@@ -10,12 +10,18 @@ const CatalogueItems = props => {
     props.recipes.error === null
   ) {
     props.getRecipes(props.category);
-    // console.log(props.category);
   }
+
   const listCategories = props.recipes.recipes.map(x => {
     return (
-      <div className="recipe-item" key={x.idMeal}>
-        <p className="item-name">{x.strMeal}</p>
+      <div
+        className="recipe-item"
+        key={x.idMeal}
+        onClick={() => props.setRecipe(x.strMeal)}
+      >
+        <div className="item-name">
+          <p className="item-text">{x.strMeal}</p>
+        </div>
         <img src={x.strMealThumb} alt={x.strMeal} />
       </div>
     );
@@ -33,7 +39,8 @@ const mapStateToProps = store => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  getRecipes: category => dispatch(getRecipes(category))
+  getRecipes: category => dispatch(getRecipes(category)),
+  getRecipe: recipe => dispatch(getRecipe(recipe))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CatalogueItems);

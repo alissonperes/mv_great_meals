@@ -1,19 +1,22 @@
 import React from "react";
 import { connect } from "react-redux";
-import CatalogueList from "../containers/CatalogueList";
 import CatalogueItems from "../containers/CatalogueItems";
-import { updateCurrentCategory, getRecipes } from "../actions/index";
+import Item from "./Item";
+import { updateCurrentCategory, getRecipes, getRecipe } from "../actions/index";
 
 const Catalogue = props => {
-  const handleChangeCategory = e => {
-    props.updateCategory(e.target.innerText);
-    props.getCurrentRecipes(e.target.innerText);
+  const setRecipe = e => {
+    props.getClickedRecipe(e);
+    console.log(props);
   };
 
   return (
     <div>
-      <CatalogueList handleChange={handleChangeCategory} />
-      <CatalogueItems />
+      {props.recipe.recipe ? (
+        <Item />
+      ) : (
+        <CatalogueItems setRecipe={setRecipe} />
+      )}
     </div>
   );
 };
@@ -23,13 +26,14 @@ const mapStateToProps = store => {
     category: store.category,
     categories: store.categories,
     categoriesFetched: store.categories.fetched,
-    store: store
+    recipe: store.displayedRecipe
   };
 };
 
 const mapDispatchToProps = dispatch => ({
   updateCategory: category => dispatch(updateCurrentCategory(category)),
-  getCurrentRecipes: category => dispatch(getRecipes(category))
+  getCurrentRecipes: category => dispatch(getRecipes(category)),
+  getClickedRecipe: recipe => dispatch(getRecipe(recipe))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Catalogue);

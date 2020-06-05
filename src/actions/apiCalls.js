@@ -23,7 +23,7 @@ const getCategories = async () => {
 
     return data.meals;
   } catch (e) {
-    console.error("ERROR======================", e);
+    console.error(e);
   }
 };
 

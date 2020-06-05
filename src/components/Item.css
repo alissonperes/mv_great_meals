@@ -1,0 +1,26 @@
+.item-container {
+  display: flex;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.item-image {
+  object-fit: scale-down;
+  width: 100%;
+  position: sticky;
+  top: 15vh;
+}
+
+.item-instructions {
+  width: 70%;
+  margin: 0 3rem 50px;
+}
+
+@media only screen and (max-width: 950px) {
+  .item-container {
+    flex-direction: column;
+  }
+  .item-instructions {
+    margin: 0 1rem 50px;
+  }
+}

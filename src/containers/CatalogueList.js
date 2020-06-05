@@ -1,6 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
-import { updateCategories } from "../actions/index";
+import {
+  updateCategories,
+  updateCurrentCategory,
+  getRecipes,
+  clearRecipe
+} from "../actions/index";
 import "./CatalogueList.css";
 
 const CatalogueList = props => {
@@ -11,6 +16,13 @@ const CatalogueList = props => {
   ) {
     props.getCategories();
   }
+
+  const handleChangeCategory = e => {
+    props.updateCategory(e.target.innerText);
+    props.getCurrentRecipes(e.target.innerText);
+    props.clearRecipe();
+  };
+
   const listCategories = props.categories.categories.map(x => {
     const currentCategory =
       x.strCategory !== props.category ? "list-item" : "active list-item";
@@ -19,7 +31,7 @@ const CatalogueList = props => {
       <li
         className={currentCategory}
         key={x.strCategory}
-        onClick={props.handleChange}
+        onClick={handleChangeCategory}
       >
         {x.strCategory}
       </li>
@@ -27,7 +39,7 @@ const CatalogueList = props => {
   });
 
   return (
-    <div>
+    <div className="header-container">
       <ul className="header-list">{listCategories}</ul>
     </div>
   );
@@ -42,7 +54,10 @@ const mapStateToProps = store => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  getCategories: () => dispatch(updateCategories())
+  getCategories: () => dispatch(updateCategories()),
+  updateCategory: category => dispatch(updateCurrentCategory(category)),
+  getCurrentRecipes: category => dispatch(getRecipes(category)),
+  clearRecipe: () => dispatch(clearRecipe())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CatalogueList);

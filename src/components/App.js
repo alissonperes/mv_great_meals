@@ -1,30 +1,35 @@
-import React from "react";
-// import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import logo from "../logo.svg";
-import "./App.css";
-
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: this.props.name || "Loading great meal...",
-      image: logo,
-      categories: this.props.categories,
-      displayCategory: this.props.category
-    };
-  }
-
-  render() {
-    return <div className="App">{this.props.categories.length}</div>;
-  }
-}
-
-const mapStateToProps = state => ({
-  categories: state.categories,
-  category: state.category,
-  recipes: state.recipes,
-  recipe: state.displayedRecipe
-});
-
-export default connect(mapStateToProps)(App);
+// import React from "react";
+// import { connect } from "react-redux";
+// import CatalogueList from "../containers/CatalogueList";
+// import Catalogue from "./Catalogue";
+// import { updateCurrentCategory, getRecipes } from "../actions/index";
+//
+// const App = props => {
+//   const handleChangeCategory = e => {
+//     props.updateCategory(e.target.innerText);
+//     props.getCurrentRecipes(e.target.innerText);
+//   };
+//
+//   // <CatalogueList handleChange={handleChangeCategory} />
+//   return (
+//     <div>
+//       <Catalogue />
+//     </div>
+//   );
+// };
+//
+// const mapStateToProps = store => {
+//   return {
+//     category: store.category,
+//     categories: store.categories,
+//     categoriesFetched: store.categories.fetched,
+//     store: store
+//   };
+// };
+//
+// const mapDispatchToProps = dispatch => ({
+//   updateCategory: category => dispatch(updateCurrentCategory(category)),
+//   getCurrentRecipes: category => dispatch(getRecipes(category))
+// });
+//
+// export default connect(mapStateToProps, mapDispatchToProps)(App);
