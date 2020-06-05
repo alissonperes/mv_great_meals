@@ -1,4 +1,4 @@
-# Great Meals - Final Microverse capstone project
+# Great Meals - Final [Microverse](https://www.microverse.org/) capstone project
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -18,9 +18,6 @@ Live version [Here](https://alissonperes.com/meals/)
 - [Linkedin](https://www.linkedin.com/in/alissonperes)
 
 Feel free to contact me about any questions regarding this project. A star on this project would highly appreciated 
-
-## Acknowledgments
-- [Microverse](https://www.microverse.org/)
 
 ## Available Scripts
 
