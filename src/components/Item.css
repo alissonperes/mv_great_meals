@@ -20,6 +20,7 @@
   .item-container {
     flex-direction: column;
   }
+
   .item-instructions {
     margin: 0 1rem 50px;
   }
