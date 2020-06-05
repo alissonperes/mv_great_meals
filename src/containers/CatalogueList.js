@@ -53,10 +53,10 @@ const mapDispatchToProps = dispatch => ({
 CatalogueList.defaultProps = {};
 
 CatalogueList.propTypes = {
-  updateCategory: PropTypes.shape().isRequired,
-  clearRecipe: PropTypes.shape().isRequired,
-  getCurrentRecipes: PropTypes.shape().isRequired,
-  getCategories: PropTypes.shape().isRequired,
+  updateCategory: PropTypes.func.isRequired,
+  clearRecipe: PropTypes.func.isRequired,
+  getCurrentRecipes: PropTypes.func.isRequired,
+  getCategories: PropTypes.func.isRequired,
   category: PropTypes.string.isRequired,
   categories: PropTypes.shape().isRequired,
 };

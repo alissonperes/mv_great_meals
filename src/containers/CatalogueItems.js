@@ -18,9 +18,9 @@ const CatalogueItems = props => {
     props.getRecipes(props.category);
   }
 
-  const listCategories = recipes.recipes.map((x, i) => (
-    <Link to="/" onClick={() => setRecipe(x.strMeal)}>
-      <div className="recipe-item" key={x.idMeal} tabIndex={i}>
+  const listCategories = recipes.recipes.map(x => (
+    <Link to="/" onClick={() => setRecipe(x.strMeal)} key={x.idMeal}>
+      <div className="recipe-item">
         <div className="item-name">
           <p className="item-text">{x.strMeal}</p>
         </div>
@@ -46,10 +46,10 @@ const mapDispatchToProps = dispatch => ({
 CatalogueItems.defaultProps = {};
 
 CatalogueItems.propTypes = {
-  getRecipes: PropTypes.shape().isRequired,
+  getRecipes: PropTypes.func.isRequired,
   category: PropTypes.string.isRequired,
   recipes: PropTypes.shape().isRequired,
-  getClickedRecipe: PropTypes.shape().isRequired,
+  getClickedRecipe: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CatalogueItems);
