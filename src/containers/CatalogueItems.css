@@ -9,6 +9,9 @@
   position: relative;
   width: 12rem;
   height: 12rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
 }
 
 .item-name {
