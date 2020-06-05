@@ -4,8 +4,9 @@ import { updateCurrentCategory, getRecipes, getRecipe } from "../actions/index";
 import "./Item.css";
 
 const Item = props => {
-  console.log("props", props);
-  const instructions = props.recipe.recipe.strInstructions.split(/(?:\r|\n)/g);
+  const instructions = props.recipe.recipe.strInstructions.split(
+    /(?:\r\n|\r|\n)/g
+  );
   return (
     <div className="item-container">
       <div>
@@ -18,8 +19,8 @@ const Item = props => {
       <div className="item-instructions">
         <h1 className="item-header">{props.recipe.recipe.strMeal}</h1>
         <code className="item-instructions">
-          {instructions.map(x => (
-            <p>{x}</p>
+          {instructions.map((x, i) => (
+            <p key={i}>{x}</p>
           ))}
         </code>
         <a
@@ -40,8 +41,6 @@ const Item = props => {
     </div>
   );
 };
-
-// export default Item;
 
 const mapStateToProps = store => {
   return {
