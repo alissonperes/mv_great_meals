@@ -1,23 +1,33 @@
-# Great Meals - Final [Microverse](https://www.microverse.org/) capstone project
+# Great Meals - Final Microverse capstone project
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-Live version [Here](https://alissonperes.com/meals/)
+This was by far the most complete project I've built so far. It challenged me to improve my codding skills to create a great APP that I'm proud of.
 
-## Built With:
+A special thanks to Microverse, and the TSEs that reviewed this project and gave me tips on how to improve my project.
 
-- React
-- Redux
-- CSS
-- ES6
+## Project specifications
 
-## Author
+### Using [TheMealDB](https://www.themealdb.com/api.php) API
 
-- Alisson Peres
-- [GitHub](https://github.com/alissonperes/)
-- [Linkedin](https://www.linkedin.com/in/alissonperes)
+Using TheMealDB API to fetch data and display with react components.
+Using axios to fetch API data.
 
-Feel free to contact me about any questions regarding this project. A star on this project would highly appreciated 
+Fetching all categories on page load (https://www.themealdb.com/api/json/v1/1/categories.php) to update all available categories.
+
+Setting the default category as "Vegetarian" when creating the redux store, so all recipes from that category are displayed.
+
+Fetching all recipes from a category (https://www.themealdb.com/api/json/v1/1/lookup.php?i={recipeID}).
+
+## Thunk
+
+Using thunk on the Redux store as a middle ware to fetch async data from the API calls. With Thunk I'm fetching data from the API calls and sending the dispatch to the store as a promise, and updating the data when the promise is fulfilled.
+
+The only thing needed was to import the necessary libraries for thunk, promise and middle ware, and apply to the store. This setting is in the `./src/store.js` file.
+
+## Redux Store
+
+Setup the Redux store to have all categories, the current displayed category, all recipes for the current displayed category and the displayed recipe. In the `./src/reducers/index.js` I combined all the reducers, and on the `./src/store.js` applied the middle ware mentioned previously. The redux store is imported in `./src/index.js` and passed to the Provider to all React components.
 
 ## Available Scripts
 
@@ -48,13 +58,13 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 ### `yarn eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
 ## Learn More
 

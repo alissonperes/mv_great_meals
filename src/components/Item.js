@@ -27,7 +27,7 @@ const Item = props => {
           <div />
         </div>,
       );
-    } else if (fetched) {
+    } else if (fetched && recipe.recipe.idMeal === id) {
       const instructions = recipe.recipe.strInstructions.split(/(?:\r\n|\r|\n)/g);
       setDisplayRecipe(
         <div className="item-container">
@@ -54,6 +54,8 @@ const Item = props => {
           </div>
         </div>,
       );
+    } else {
+      getClickedRecipe(id);
     }
   }, [recipe, fetched, fetching, error, id, getClickedRecipe]);
 
