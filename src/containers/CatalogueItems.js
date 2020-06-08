@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -9,42 +9,45 @@ import './CatalogueItems.css';
 const CatalogueItems = props => {
   const { recipes } = props;
   const { fetched, fetching, error } = recipes;
+  const [recipeItems, setRecipeItems] = useState();
+  useEffect(() => {
+    const setRecipe = e => {
+      props.getClickedRecipe(e);
+    };
 
-  const setRecipe = e => {
-    props.getClickedRecipe(e);
-  };
-  let listCategories = [];
+    if (!fetched && !fetching && error === null) {
+      props.getRecipes(props.category);
+    } else if (fetching) {
+      setRecipeItems(
+        <div className="lds-roller">
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+        </div>,
+      );
+      // <Link to="/" onClick={() => setRecipe(x.idMeal)} key={x.idMeal}>
+    } else if (fetched) {
+      setRecipeItems(
+        recipes.recipes.map(x => (
+          <Link to={`/item/${x.idMeal}`} onClick={() => setRecipe(x.idMeal)} key={x.idMeal}>
+            <div className="recipe-item">
+              <div className="item-name">
+                <p className="item-text">{x.strMeal}</p>
+              </div>
+              <img src={x.strMealThumb} alt={x.strMeal} />
+            </div>
+          </Link>
+        )),
+      );
+    }
+  }, [recipes]);
 
-  if (!fetched && !fetching && error === null) {
-    props.getRecipes(props.category);
-  } else if (fetching) {
-    listCategories = (
-      <div className="lds-roller">
-        <div />
-        <div />
-        <div />
-        <div />
-        <div />
-        <div />
-        <div />
-        <div />
-      </div>
-    );
-    // <Link to="/" onClick={() => setRecipe(x.idMeal)} key={x.idMeal}>
-  } else if (fetched) {
-    listCategories = recipes.recipes.map(x => (
-      <Link to={`/item/${x.idMeal}`} onClick={() => setRecipe(x.idMeal)} key={x.idMeal}>
-        <div className="recipe-item">
-          <div className="item-name">
-            <p className="item-text">{x.strMeal}</p>
-          </div>
-          <img src={x.strMealThumb} alt={x.strMeal} />
-        </div>
-      </Link>
-    ));
-  }
-
-  return <div className="recipes-container">{listCategories}</div>;
+  return <div className="recipes-container">{recipeItems}</div>;
 };
 
 const mapStateToProps = store => ({
