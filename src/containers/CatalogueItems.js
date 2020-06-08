@@ -7,16 +7,18 @@ import { getRecipes, getRecipe } from '../actions/index';
 import './CatalogueItems.css';
 
 const CatalogueItems = props => {
-  const { recipes } = props;
+  const {
+    recipes, getRecipes, category, getClickedRecipe,
+  } = props;
   const { fetched, fetching, error } = recipes;
   const [recipeItems, setRecipeItems] = useState();
   useEffect(() => {
     const setRecipe = e => {
-      props.getClickedRecipe(e);
+      getClickedRecipe(e);
     };
 
     if (!fetched && !fetching && error === null) {
-      props.getRecipes(props.category);
+      getRecipes(category);
     } else if (fetching) {
       setRecipeItems(
         <div className="lds-roller">
@@ -45,7 +47,7 @@ const CatalogueItems = props => {
         )),
       );
     }
-  }, [recipes]);
+  }, [recipes, getRecipes, category, getClickedRecipe, error, fetched, fetching]);
 
   return <div className="recipes-container">{recipeItems}</div>;
 };
