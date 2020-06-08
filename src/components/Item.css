@@ -27,8 +27,8 @@
 }
 
 .lds-roller {
-  display: inline-block;
-  position: relative;
+  display: flex;
+  margin: auto;
   width: 80px;
   height: 80px;
 }

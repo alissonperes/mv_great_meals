@@ -7,6 +7,7 @@ import Item from './Item';
 
 const Catalogue = props => {
   const { recipe } = props;
+  console.log('CAALOGUE');
 
   return (
     <Router>
