@@ -23,7 +23,10 @@ const displayedRecipe = (state = initstate, action) => {
     }
     case 'CLEAR_RECIPE': {
       return {
-        ...state, fetching: false, fetched: false, recipe: null,
+        ...state,
+        fetching: false,
+        fetched: false,
+        recipe: null,
       };
     }
     default: {

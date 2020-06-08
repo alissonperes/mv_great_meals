@@ -1,5 +1,22 @@
+const initCategories = [
+  { strCategory: 'Beef' },
+  { strCategory: 'Breakfast' },
+  { strCategory: 'Chicken' },
+  { strCategory: 'Dessert' },
+  { strCategory: 'Goat' },
+  { strCategory: 'Lamb' },
+  { strCategory: 'Miscellaneous' },
+  { strCategory: 'Pasta' },
+  { strCategory: 'Pork' },
+  { strCategory: 'Seafood' },
+  { strCategory: 'Side' },
+  { strCategory: 'Starter' },
+  { strCategory: 'Vegan' },
+  { strCategory: 'Vegetarian' },
+];
+
 const initstate = {
-  categories: [],
+  categories: initCategories,
   fetching: false,
   fetched: false,
   error: null,

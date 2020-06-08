@@ -13,21 +13,36 @@ const CatalogueItems = props => {
   const setRecipe = e => {
     props.getClickedRecipe(e);
   };
+  let listCategories = [];
 
   if (!fetched && !fetching && error === null) {
     props.getRecipes(props.category);
-  }
-
-  const listCategories = recipes.recipes.map(x => (
-    <Link to="/" onClick={() => setRecipe(x.strMeal)} key={x.idMeal}>
-      <div className="recipe-item">
-        <div className="item-name">
-          <p className="item-text">{x.strMeal}</p>
-        </div>
-        <img src={x.strMealThumb} alt={x.strMeal} />
+  } else if (fetching) {
+    listCategories = (
+      <div className="lds-roller">
+        <div />
+        <div />
+        <div />
+        <div />
+        <div />
+        <div />
+        <div />
+        <div />
       </div>
-    </Link>
-  ));
+    );
+    // <Link to="/" onClick={() => setRecipe(x.idMeal)} key={x.idMeal}>
+  } else if (fetched) {
+    listCategories = recipes.recipes.map(x => (
+      <Link to={`/item/${x.idMeal}`} onClick={() => setRecipe(x.idMeal)} key={x.idMeal}>
+        <div className="recipe-item">
+          <div className="item-name">
+            <p className="item-text">{x.strMeal}</p>
+          </div>
+          <img src={x.strMealThumb} alt={x.strMeal} />
+        </div>
+      </Link>
+    ));
+  }
 
   return <div className="recipes-container">{listCategories}</div>;
 };

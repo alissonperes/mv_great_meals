@@ -11,7 +11,7 @@ const Catalogue = props => {
   return (
     <Router>
       <Switch>
-        <Route exact path="/" component={recipe.recipe ? Item : CatalogueItems} />
+        <Route component={recipe.recipe ? Item : CatalogueItems} />
       </Switch>
     </Router>
   );

@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import { Route, BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import Catalogue from './components/Catalogue';
-import CatalogueList from './containers/CatalogueList';
 import Item from './components/Item';
+import CatalogueList from './containers/CatalogueList';
 import store from './store';
 import './index.css';
 

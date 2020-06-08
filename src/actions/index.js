@@ -12,7 +12,7 @@ const getRecipes = currentCategory => ({
 
 const getRecipe = recipe => ({
   type: 'GET_RECIPE',
-  payload: axios.get(`https://www.themealdb.com/api/json/v1/1/search.php?s=${recipe}`),
+  payload: axios.get(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipe}`),
 });
 
 const clearRecipe = () => ({ type: 'CLEAR_RECIPE' });

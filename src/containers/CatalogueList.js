@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
@@ -9,6 +10,7 @@ import './CatalogueList.css';
 const CatalogueList = props => {
   const { categories } = props;
   const { fetched, fetching, error } = categories;
+
   if (!fetched && !fetching && error === null) {
     props.getCategories();
   }
@@ -23,11 +25,9 @@ const CatalogueList = props => {
     const currentCategory = x.strCategory !== props.category ? 'list-item' : 'active list-item';
 
     return (
-      <li key={x.strCategory} className={currentCategory}>
-        <button type="button" onClick={handleChangeCategory}>
-          {x.strCategory}
-        </button>
-      </li>
+      <Link to="/" key={x.strCategory} className={currentCategory} onClick={handleChangeCategory}>
+        <button type="button">{x.strCategory}</button>
+      </Link>
     );
   });
 
