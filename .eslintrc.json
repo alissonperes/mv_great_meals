@@ -18,7 +18,8 @@
     "import/no-unresolved": "off",
     "react/jsx-key": "off",
     "no-shadow": "off",
-    "arrow-parens": ["error", "as-needed"]
+    "arrow-parens": ["error", "as-needed"],
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }]
   },
   "ignorePatterns": ["dist/", "build/"]
 }
