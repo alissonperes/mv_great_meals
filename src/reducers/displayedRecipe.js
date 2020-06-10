@@ -8,10 +8,22 @@ const initstate = {
 const displayedRecipe = (state = initstate, action) => {
   switch (action.type) {
     case 'GET_RECIPE_PENDING': {
-      return { ...state, fetching: true, error: null };
+      return {
+        ...state,
+        fetching: true,
+        fetched: false,
+        error: null,
+        recipe: null,
+      };
     }
     case 'GET_RECIPE_REJECTED': {
-      return { ...state, fetching: false, error: action.payload };
+      return {
+        ...state,
+        fetching: false,
+        error: action.payload,
+        recipe: null,
+        fetched: false,
+      };
     }
     case 'GET_RECIPE_FULFILLED': {
       return {
