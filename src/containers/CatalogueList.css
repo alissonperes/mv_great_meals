@@ -1,13 +1,25 @@
+.header-container {
+  top: 0;
+  position: sticky;
+  z-index: 99;
+  background: #fff;
+  padding: 0.8rem 0;
+}
+
 .header-list {
   display: flex;
+  flex-wrap: wrap;
   list-style: none;
+  margin: 0;
+  padding: 0 1rem;
+  justify-content: center;
 }
 
 .list-item {
-  margin-right: 1rem;
+  padding: 0.5rem;
+  margin: 0.5rem 0;
 }
 
-.selected-item {
+.active.list-item {
   background-color: pink;
-  margin-right: 1rem;
 }

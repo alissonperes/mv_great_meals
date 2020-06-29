@@ -1,70 +1,75 @@
-import React from "react";
-import { connect } from "react-redux";
-import "./CatalogueItems.css";
-import { updateCategories } from "../actions/index";
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { getRecipes, getRecipe } from '../actions/index';
 
-const items = [
-  {
-    strMeal: "Baingan Bharta",
-    strMealThumb:
-      "https://www.themealdb.com/images/media/meals/urtpqw1487341253.jpg",
-    idMeal: "52807"
-  },
-  {
-    strMeal: "Chickpea Fajitas",
-    strMealThumb:
-      "https://www.themealdb.com/images/media/meals/tvtxpq1511464705.jpg",
-    idMeal: "52870"
-  },
-  {
-    strMeal: "Dal fry",
-    strMealThumb:
-      "https://www.themealdb.com/images/media/meals/wuxrtu1483564410.jpg",
-    idMeal: "52785"
-  },
-  {
-    strMeal: "Egg Drop Soup",
-    strMealThumb: "https://www.themealdb.com/images/media/meals/1529446137.jpg",
-    idMeal: "52955"
-  },
-  {
-    strMeal: "Flamiche",
-    strMealThumb:
-      "https://www.themealdb.com/images/media/meals/wssvvs1511785879.jpg",
-    idMeal: "52906"
-  }
-];
+import './CatalogueItems.css';
 
-class CatalogueItems extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      displayCategory: this.props.category,
-      recipes: this.props.recipes
+const CatalogueItems = props => {
+  const {
+    recipes, getRecipes, category, getClickedRecipe,
+  } = props;
+  const { fetched, fetching, error } = recipes;
+  const [recipeItems, setRecipeItems] = useState();
+  useEffect(() => {
+    const setRecipe = e => {
+      getClickedRecipe(e);
     };
-  }
 
-  render() {
-    const currentCategoryItems = [];
-    items.forEach(x =>
-      currentCategoryItems.push(
-        <div className="recipe-list-item">
-          <p>{x.strMeal}</p>
-          <img src={x.strMealThumb} alt={x.strMeal} />
-        </div>
-      )
-    );
-    return <div className="recipe-items">{currentCategoryItems}</div>;
-  }
-}
+    if (!fetched && !fetching && error === null) {
+      getRecipes(category);
+    } else if (fetching) {
+      setRecipeItems(
+        <div className="lds-roller">
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+        </div>,
+      );
+      // <Link to="/" onClick={() => setRecipe(x.idMeal)} key={x.idMeal}>
+    } else if (fetched) {
+      setRecipeItems(
+        recipes.recipes.map(x => (
+          <Link to={`/item/${x.idMeal}`} onClick={() => setRecipe(x.idMeal)} key={x.idMeal}>
+            <div className="recipe-item">
+              <div className="item-name">
+                <p className="item-text">{x.strMeal}</p>
+              </div>
+              <img src={x.strMealThumb} alt={x.strMeal} />
+            </div>
+          </Link>
+        )),
+      );
+    }
+  }, [recipes, getRecipes, category, getClickedRecipe, error, fetched, fetching]);
 
-const mapStateToProps = state => ({
-  category: state.category,
-  recipes: state.recipes
+  return <div className="recipes-container">{recipeItems}</div>;
+};
+
+const mapStateToProps = store => ({
+  category: store.category,
+  recipes: store.recipes,
+  store,
 });
 
 const mapDispatchToProps = dispatch => ({
-  updateCategories: categories => dispatch(updateCategories(categories))
+  getRecipes: category => dispatch(getRecipes(category)),
+  getClickedRecipe: recipe => dispatch(getRecipe(recipe)),
 });
+
+CatalogueItems.defaultProps = {};
+
+CatalogueItems.propTypes = {
+  getRecipes: PropTypes.func.isRequired,
+  category: PropTypes.string.isRequired,
+  recipes: PropTypes.shape().isRequired,
+  getClickedRecipe: PropTypes.func.isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(CatalogueItems);

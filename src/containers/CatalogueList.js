@@ -1,69 +1,64 @@
-import React from "react";
-import { connect } from "react-redux";
-import "./CatalogueList.css";
-import { updateCategories } from "../actions/index";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import {
+  updateCategories, updateCurrentCategory, getRecipes, clearRecipe,
+} from '../actions/index';
+import './CatalogueList.css';
 
-class CatalogueList extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      categories: this.props.categories,
-      displayCategory: this.props.category
-    };
+const CatalogueList = props => {
+  const { categories } = props;
+  const { fetched, fetching, error } = categories;
+
+  if (!fetched && !fetching && error === null) {
+    props.getCategories();
   }
 
-  async getCategories() {
-    try {
-      const response = await fetch(
-        "https://www.themealdb.com/api/json/v1/1/list.php?c=list"
-      );
-      const data = await response.json();
-      const updatedCategories = data.meals;
+  const handleChangeCategory = e => {
+    props.updateCategory(e.target.innerText);
+    props.getCurrentRecipes(e.target.innerText);
+    props.clearRecipe();
+  };
 
-      this.props.updateCategories(updatedCategories);
-    } catch (e) {
-      console.error(e);
-    }
-  }
+  const listCategories = categories.categories.map(x => {
+    const currentCategory = x.strCategory !== props.category ? 'list-item' : 'active list-item';
 
-  componentWillMount() {
-    this.getCategories();
-  }
-
-  render() {
-    // console.log(this.props);
-    const categoryItems = [];
-    this.props.categories.forEach(x =>
-      categoryItems.push(
-        <li
-          className={
-            x.strCategory === this.state.displayCategory
-              ? "selected-item"
-              : "list-item"
-          }
-          key={x.strCategory}
-        >
-          {x.strCategory}
-        </li>
-      )
-    );
     return (
-      <div className="header">
-        <ul className="header-list">{categoryItems}</ul>
-      </div>
+      <Link to="/" key={x.strCategory} className={currentCategory} onClick={handleChangeCategory}>
+        <button type="button">{x.strCategory}</button>
+      </Link>
     );
-  }
-}
+  });
 
-const mapStateToProps = state => ({
-  categories: state.categories,
-  category: state.category,
-  recipes: state.recipes,
-  recipe: state.displayedRecipe
+  return (
+    <div className="header-container">
+      <ul className="header-list">{listCategories}</ul>
+    </div>
+  );
+};
+
+const mapStateToProps = store => ({
+  category: store.category,
+  categories: store.categories,
 });
 
 const mapDispatchToProps = dispatch => ({
-  updateCategories: categories => dispatch(updateCategories(categories))
+  getCategories: () => dispatch(updateCategories()),
+  updateCategory: category => dispatch(updateCurrentCategory(category)),
+  getCurrentRecipes: category => dispatch(getRecipes(category)),
+  clearRecipe: () => dispatch(clearRecipe()),
 });
+
+CatalogueList.defaultProps = {};
+
+CatalogueList.propTypes = {
+  updateCategory: PropTypes.func.isRequired,
+  clearRecipe: PropTypes.func.isRequired,
+  getCurrentRecipes: PropTypes.func.isRequired,
+  getCategories: PropTypes.func.isRequired,
+  category: PropTypes.string.isRequired,
+  categories: PropTypes.shape().isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(CatalogueList);

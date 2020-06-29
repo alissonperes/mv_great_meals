@@ -1,17 +1,33 @@
-import React from "react";
-import CatalogueList from "../containers/CatalogueList";
-import CatalogueItems from "../containers/CatalogueItems";
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import CatalogueItems from '../containers/CatalogueItems';
+import Item from './Item';
 
-class Catalogue extends React.Component {
-  render() {
-    console.log("here");
-    return (
-      <div>
-        <CatalogueList />
-        <CatalogueItems />
-      </div>
-    );
-  }
-}
+const Catalogue = props => {
+  const { recipe } = props;
 
-export default Catalogue;
+  return (
+    <Router>
+      <Switch>
+        <Route component={recipe.recipe ? Item : CatalogueItems} />
+      </Switch>
+    </Router>
+  );
+};
+
+const mapStateToProps = store => ({
+  category: store.category,
+  categories: store.categories,
+  categoriesFetched: store.categories.fetched,
+  recipe: store.displayedRecipe,
+});
+
+Catalogue.defaultProps = {};
+
+Catalogue.propTypes = {
+  recipe: PropTypes.shape().isRequired,
+};
+
+export default connect(mapStateToProps)(Catalogue);
